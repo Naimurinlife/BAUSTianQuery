@@ -16,14 +16,26 @@
     <?php include 'partials/_header.php';  ?>
     <?php include 'partials/_dbconnect.php';  ?>
 
+    <?php
+    $id = $_GET['catid'];
+    $sql = "SELECT * FROM `categories` WHERE category_id=$id";
+    $result = mysqli_query($conn, $sql);
+
+
+    while ($row = mysqli_fetch_assoc($result)) {
+        $catname = $row['category_name'];
+        $catdesc = $row['category_description'];
+    }
+    ?>
+
     <div class="container my-4">
 
         <div class="jumbotron">
-            <h1 class="display-4">Welcome to CSE Forum</h1>
-            <p class="lead">Welcome to the FORUM of Computer Science and Engineering (CSE)</p>
+            <h1 class="display-4">Welcome to <?php echo $catname; ?> Forum</h1>
+            <p class="lead"> <?php echo $catdesc; ?></p>
             <hr class="my-4">
             <p>This is a Forum Which can be used to share knowledge about Recent of Tech related discussion.</p>
-            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+            <a class="btn btn-success btn-lg" href="#" role="button">Learn more</a>
         </div>
 
 
@@ -31,55 +43,37 @@
     <div class="container">
         <h1 class="py-3">Browse Questions</h1>
 
-        <div class="media my-3">
+
+        <?php
+        $id = $_GET['catid'];
+        $sql = "SELECT * FROM `threads` WHERE thread_cat_id=$id";
+        $result = mysqli_query($conn, $sql);
+
+
+        while ($row = mysqli_fetch_assoc($result)) {
+            $id = $row['thread_id'];
+            $title = $row['thread_title'];
+            $desc = $row['thread_desc'];
+
+
+            echo '<div class="media my-3">
             <img src="img/default_user.png" width="54px" class="mr-3" alt="...">
             <div class="media-body">
-                <h5 class="mt-0">Unable to install Android Studio SDK</h5>
-                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                <h5 class="mt-0"><a href="thread.php">' . $title . ' </a> </h5>
+                ' . $title . '
             </div>
-        </div>
-        <div class="media my-3">
-            <img src="img/default_user.png" width="54px" class="mr-3" alt="...">
-            <div class="media-body">
-                <h5 class="mt-0">Unable to install Android Studio SDK</h5>
-                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-            </div>
-        </div>
-        <div class="media my-3">
-            <img src="img/default_user.png" width="54px" class="mr-3" alt="...">
-            <div class="media-body">
-                <h5 class="mt-0">Unable to install Android Studio SDK</h5>
-                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-            </div>
-        </div>
-        <div class="media my-3">
-            <img src="img/default_user.png" width="54px" class="mr-3" alt="...">
-            <div class="media-body">
-                <h5 class="mt-0">Unable to install Android Studio SDK</h5>
-                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-            </div>
-        </div>
-        <div class="media my-3">
-            <img src="img/default_user.png" width="54px" class="mr-3" alt="...">
-            <div class="media-body">
-                <h5 class="mt-0">Unable to install Android Studio SDK</h5>
-                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-            </div>
-        </div>
-        <div class="media my-3">
-            <img src="img/default_user.png" width="54px" class="mr-3" alt="...">
-            <div class="media-body">
-                <h5 class="mt-0">Unable to install Android Studio SDK</h5>
-                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-            </div>
-        </div>
-        <div class="media my-3">
-            <img src="img/default_user.png" width="54px" class="mr-3" alt="...">
-            <div class="media-body">
-                <h5 class="mt-0">Unable to install Android Studio SDK</h5>
-                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-            </div>
-        </div>
+        </div>';
+        }
+        ?>
+
+        <!-- <div class="media my-3">
+                        <img src="img/default_user.png" width="54px" class="mr-3" alt="...">
+                        <div class="media-body">
+                            <h5 class="mt-0">Unable to install Android Studio SDK</h5>
+                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                        </div>
+                    </div>
+            -->
     </div>
 
 

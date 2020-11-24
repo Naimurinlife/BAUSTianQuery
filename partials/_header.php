@@ -1,4 +1,8 @@
 <?php
+
+session_start();
+
+
 echo ' <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 <a class="navbar-brand" href="/FINALProject">BAUSTian Query</a>
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,14 +32,27 @@ echo ' <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="nav-link " href="contact.php" >Contact</a>
         </li>
     </ul>
-    <div class="mx-2 row">
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    <div class="mx-2 row">';
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+
+    echo '   <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+       <p class = "text-light my-0 mx-2"> Welcome ' . $_SESSION['useremail'] . ' </p>
+       <a href="partials/_logout.php" class="btn btn-success ml-2 " >Logout</a>
+       </form>';
+} else {
+
+    echo '<form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          
         </form>
         <button class="btn btn-success ml-2 " data-toggle="modal" data-target="#loginModal"  >Login</button>
-        <button class="btn btn-success mx-2 " data-toggle="modal" data-target="#signupModal" >Signup</button>
-    </div>
+        <button class="btn btn-success mx-2 " data-toggle="modal" data-target="#signupModal" >Signup</button>';
+}
+
+echo ' </div>
 
 </div>
 </nav>';

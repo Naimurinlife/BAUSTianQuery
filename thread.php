@@ -69,21 +69,26 @@
 
     </div>
 
-    <div class="container">
-
-        <h1 class="py-3">Post a Comment</h1>
-
-        <form action="<?php echo $_SERVER['REQUEST_URI']  ?>" method="post">
-
-            <div class="form-group">
-                <label for="exampleFormControlTextarea1">Give a Comment</label>
-                <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
-            </div>
-
-            <button type="submit" class="btn btn-success">Post Comment</button>
+    <?php
+    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+        echo '<div class="container">
+                    <h1 class="py-3">Post a Comment</h1>
+                    <form action="' . $_SERVER["REQUEST_URI"] . '" method="post">
+                             <div class="form-group">
+                                 <label for="exampleFormControlTextarea1">Give a Comment</label>
+                                     <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
+                                </div>
+                    <button type="submit" class="btn btn-success">Post Comment</button>
         </form>
+    </div>';
+    } else {
+        echo '<div class="container">
+        <h1 class="py-3">Start a Discussion</h1>
+        <p class ="lead"> You are not logged in. Please login to able to Post a comment.</p> 
     </div>
-
+';
+    }
+    ?>
 
 
     <div class="container" id="ques">

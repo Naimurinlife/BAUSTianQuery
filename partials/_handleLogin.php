@@ -1,7 +1,7 @@
 <?php
 
 $showError = "false";
-if($_SERVER["REQUEST_METHOD"] == "POST"){
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $servername = "localhost";
     $username = "root";
@@ -9,23 +9,24 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $database = "baustian";
     $conn = mysqli_connect($servername, $username, $password, $database);
 
-    $email =$_POST['loginEmail'];
+    $email = $_POST['loginEmail'];
     $pass = $_POST['loginPass'];
 
     $sql = "Select * from users where user_email = '$email'";
-    $result = mysqli_query($conn, $sql); 
+    $result = mysqli_query($conn, $sql);
     $numRows = mysqli_num_rows($result);
-    if($numRows==1){
+    if ($numRows == 1) {
         $row = mysqli_fetch_assoc($result);
-            if(password_verify($pass, $row['user_pass'])){
+        if (password_verify($pass, $row['user_pass'])) {
 
-             session_start();
-             $_SESSION['loggedin'] =true;
-             $_SESSION['useremail']=$email;
-             echo "logged in". $email;
-            } 
-             
-            header("Location: /FINALProject/index.php"); 
+            session_start();
+            $_SESSION['loggedin'] = true;
+            $_SESSION['sno'] = $row['sno'];
+            $_SESSION['useremail'] = $email;
+            echo "logged in" . $email;
+        }
+
+        header("Location: /FINALProject/index.php");
     }
-    header("Location: /FINALProject/index.php"); 
+    header("Location: /FINALProject/index.php");
 }

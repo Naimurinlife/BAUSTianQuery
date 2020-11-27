@@ -41,7 +41,8 @@
 
         $th_title = $_POST['title'];
         $th_desc = $_POST['desc'];
-        $sql = "INSERT INTO `threads` (`thread_title`, `thread_desc`, `thread_cat_id`, `thread_user_id`, `timestamp`) VALUES ( '$th_title', '$th_desc', '$id', '0', current_timestamp())";
+        $sno = $_POST['sno'];
+        $sql = "INSERT INTO `threads` (`thread_title`, `thread_desc`, `thread_cat_id`, `thread_user_id`, `timestamp`) VALUES ( '$th_title', '$th_desc', '$id', '$sno', current_timestamp())";
         $result = mysqli_query($conn, $sql);
         $showAlert = true;
         if ($showAlert) {
@@ -78,6 +79,7 @@
                         <input type="text" class="form-control" id="title" name="title" aria-describedby="emailHelp">
                         <small id="emailHelp" class="form-text text-muted">Keep your discussion title as short & crisp as possible</small>
                     </div>
+                    <input type="hidden" name="sno" value="' . $_SESSION["sno"] . '">
                      <div class="form-group">
                         <label for="exampleFormControlTextarea1">Explain Discussion</label>
                         <textarea class="form-control" id="desc" name="desc" rows="3"></textarea>
@@ -113,12 +115,19 @@
             $title = $row['thread_title'];
             $desc = $row['thread_desc'];
             $thread_time = $row['timestamp'];
+            $thread_user_id = $row['thread_user_id'];
+            $sql2 = "SELECT user_email FROM `users` WHERE sno='$thread_user_id'";
+            $result2 = mysqli_query($conn, $sql2);
+            $row2 = mysqli_fetch_assoc($result2);
+
+
+
 
 
             echo '<div class="media my-3">
             <img src="img/default_user.png" width="54px" class="mr-3" alt="...">
             <div class="media-body">
-            <p class="font-weight-bold my-0">Anonymous User at ' . $thread_time . ' </p>
+            <p class="font-weight-bold my-0">Asked By: ' . $row2['user_email'] . ' at ' . $thread_time . ' </p>
                 <h5 class="mt-0"><a href="thread.php?threadid=' . $id . '">' . $title . ' </a> </h5>
                 ' . $desc . '
             </div>
